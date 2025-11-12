@@ -81,11 +81,62 @@ const DomoList = (props) => {
 };//end of DomoList
 
 
+//DomoMakerE
+const handlePasswordChange = (e) => {
+  e.preventDefault();
+  helper.hideError();
+
+  const currentPass = e.target.querySelector('#currentPass').value;
+  const newPass = e.target.querySelector('#newPass').value;
+  const newPass2 = e.target.querySelector('#newPass2').value;
+
+  if (!currentPass || !newPass || !newPass2) {
+    helper.handleError('All fields are required!');
+    return false;
+  }
+
+  if (newPass !== newPass2) {
+    helper.handleError('New passwords do not match!');
+    return false;
+  }
+
+  helper.sendPost(e.target.action, { currentPass, newPass, newPass2 });
+  return false;
+};
+
+
+const ChangePasswordForm = () => {
+  return (
+    <form id="changePassForm"
+      onSubmit={handlePasswordChange}
+      name="changePassForm"
+      action="/changePassword"
+      method="POST"
+      className="changePassForm">
+
+      <label htmlFor="currentPass">Current Password: </label>
+      <input id="currentPass" type="password" name="currentPass" placeholder="Current Password" />
+      <label htmlFor="newPass">New Password: </label>
+      <input id="newPass" type="password" name="newPass" placeholder="New Password" />
+      <label htmlFor="newPass2">Confirm New Password: </label>
+      <input id="newPass2" type="password" name="newPass2" placeholder="Confirm New Password" />
+      <input className="formSubmit" type="submit" value="Change Password" />
+    </form>
+  );
+};
+
+//
+
+
 //38 
 const App = () => {
     const [reloadDomos, setReloadDomos] = useState(false);
     return(
+        
         <div>
+            <div id="changePassword">
+            <ChangePasswordForm />
+            </div>
             <div id="makeDomo">
                 <DomoForm triggerReload={() => setReloadDomos(!reloadDomos)} />
             </div>

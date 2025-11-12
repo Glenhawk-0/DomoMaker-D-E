@@ -10,7 +10,7 @@ const router = (app) => {
 
   app.post('/signup', mid.requiresSecure, mid.requiresLogout, controllers.Account.signup);
 
-  //domoMaker E
+  // domoMaker E
   app.post('/changePassword', mid.requiresLogin, controllers.Account.changePassword);
   //
   app.get('/logout', mid.requiresLogin, controllers.Account.logout);
